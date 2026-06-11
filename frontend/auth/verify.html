@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Verify OTP</title>
+
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #0B1220;
+            font-family: Arial;
+            color: white;
+        }
+
+        .card {
+            width: 360px;
+            padding: 24px;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+        }
+
+        h2 {
+            margin-bottom: 10px;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            font-size: 18px;
+            text-align: center;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.03);
+            color: white;
+            outline: none;
+            letter-spacing: 6px;
+            box-sizing: border-box;
+        }
+
+        input:focus {
+            border-color: #3B82F6;
+        }
+
+        .boxes {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .box {
+            width: 45px;
+            height: 55px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 22px;
+            background: rgba(255, 255, 255, 0.03);
+        }
+
+        button {
+            margin-top: 18px;
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 10px;
+            background: #3B82F6;
+            color: white;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #22D3EE;
+        }
+
+        .resend {
+            margin-top: 12px;
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .resend button {
+            background: none;
+            border: none;
+            color: #22D3EE;
+            cursor: pointer;
+            font-size: 13px;
+            padding: 0;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="card">
+        <h2>Verify OTP</h2>
+
+        <input id="otpInput" maxlength="6" placeholder="Enter OTP" />
+
+        <div class="boxes">
+            <div class="box"></div>
+            <div class="box"></div>
+            <div class="box"></div>
+            <div class="box"></div>
+            <div class="box"></div>
+            <div class="box"></div>
+        </div>
+
+        <button onclick="verify()">Verify</button>
+
+        <div class="resend">
+            Didn't receive code?
+            <button onclick="resend()">Resend OTP</button>
+        </div>
+    </div>
+
+    <script  type="module" src="verify.js"></script>
+</body>
+
+</html>

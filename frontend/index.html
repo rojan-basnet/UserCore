@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UserCore</title>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
+
+        body {
+            margin: 0;
+            font-family: Inter, sans-serif;
+            background: #0B1220;
+            color: #E5E7EB;
+        }
+
+        /* NAV */
+        header {
+            height: 60px;
+            display: flex;
+            align-items: center;
+            padding: 0 22px;
+            background: rgba(255, 255, 255, 0.03);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            font-weight: 600;
+        }
+
+        /* PAGE */
+        .container {
+            max-width: 1000px;
+            margin: auto;
+            padding: 30px 20px;
+        }
+
+        /* FORM */
+        form {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        input[type="text"] {
+            flex: 1;
+            padding: 12px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: rgba(255, 255, 255, 0.04);
+            color: white;
+            outline: none;
+        }
+
+        input[type="submit"] {
+            padding: 12px 16px;
+            border-radius: 10px;
+            border: none;
+            background: #3B82F6;
+            color: white;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background: #22D3EE;
+        }
+
+        /* PROJECT GRID */
+        .projects-container {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 14px;
+        }
+
+        /* PROJECT CARD */
+        .ind-proj {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 14px;
+            padding: 16px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .ind-proj:hover {
+            transform: translateY(-4px);
+            border-color: rgba(255, 255, 255, 0.15);
+        }
+
+        /* EMPTY STATE */
+        .is-empty {
+            font-size: 18px;
+            opacity: 0.6;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>UserCore</header>
+
+    <div class="container">
+
+        <h2 style="margin-bottom:10px;">Projects</h2>
+
+        <form id="form">
+            <input type="text" name="projectName" id="projectName" placeholder="New Project">
+            <input type="submit" value="Create">
+        </form>
+
+        <ul class="projects-container"></ul>
+
+    </div>
+
+    <script  type ="module" src="index.js"></script>
+
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UserCore</title>
+    <link rel="stylesheet" href="style.css">
+
+
+
+    <style>
+        /* 
+            Background: #0F1B2D
+            Cards: #1E3A5F
+            Buttons: #3B82F6
+            Hover: #22D3EE
+            Text: #E5E7EB 
+        */
+
+        body {
+            color: #E5E7EB;
+            margin: 0;
+            background-color: #0F1B2D;
+        }
+
+        .projects-container {
+
+            margin: none;
+            padding: 0;
+            display: flex;
+            gap: 10px;
+        }
+
+        .ind-proj {
+            background-color: #1E3A5F;
+            font-size: 32px;
+            list-style: none;
+            border-radius: 20px;
+            padding: 20px
+        }
+
+        .ind-proj:hover {
+            background-color: #254773;
+            cursor: pointer;
+        }
+
+        .is-empty {
+            color: rgb(255, 255, 255);
+            font-size: xx-large;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>welcome to user code</h1>
+
+    <form id="form">
+        <input type="text" name="projectName" id="projectName" placeholder="New Project">
+        <input type="submit" value="Create">
+    </form>
+
+
+
+    <ul class="projects-container">
+
+    </ul>
+
+</body>
+<script>
+    const form = document.getElementById("form");
+    const projetsContainer = document.querySelector('.projects-container')
+    const { projectName } = form.elements;
+
+    const CONFIG = {
+        API_URL: "http://localhost:3000",
+
+    };
+
+    init();
+
+    projetsContainer.addEventListener("click", (e,index) => {
+        const li = e.target.closest("li");
+
+        if (!li) return; // clicked outside a list item
+
+        console.log("Clicked:", li.dataset);
+        window.location.href = `${window.location.pathname}project.html?id=${li.dataset.id}`;
+        //window.location.href=`${window.location.pathname}/${li.dataset.id}`;
+    });
+
+
+
+    form.onsubmit = async (e) => {
+        e.preventDefault();
+
+        const nameStr = projectName.value.trim()
+        if (nameStr === "") {
+            return window.alert("Cannot add Empty project");
+        }
+        try {
+            const response = await fetch(`${CONFIG.API_URL}/api/project/create`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    name: nameStr
+                })
+            });
+
+
+            if (response.status === 409) {
+                alert("Duplicate project names");
+                throw new Error("Duplicate project names");
+            }
+
+            if (!response.ok) {
+                throw new Error("FAILED TO ADD NEW PROJECT!!!");
+            }
+
+            console.log("form submitted");
+
+            form.reset();
+
+            const data = await response.json();
+            addProjectToScreen(data.newProject)
+            console.log(data.newProject);
+
+        } catch (error) {
+            console.error("Error:", error.message);
+        }
+
+
+    };
+
+
+    async function handleFetchProjects() {
+        try {
+            const response = await fetch(`${CONFIG.API_URL}/api/project`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            });
+
+            //console.log(response)
+
+            if (!response.ok) {
+                throw new Error("FAILED TO FETCH PROJECT!!!");
+            }
+
+            const data = await response.json();
+            console.log(data.projects);
+            return data.projects
+
+        } catch (err) {
+            console.error("Error:", error.message);
+        }
+    }
+
+    async function init() {
+        const projects = await handleFetchProjects();
+        showProjects(projects)
+
+    }
+
+    function showProjects(projects) {
+
+        if (projects.length === 0) {
+            const newLi = document.createElement("li");
+            newLi.textContent = "No projects";
+            newLi.classList.add("is-empty");
+
+            projetsContainer.appendChild(newLi)
+            return;
+        }
+        projects.forEach(project => {
+            addProjectToScreen(project)
+
+        });
+    }
+
+
+    function addProjectToScreen(project) {
+
+        console.log(project);
+        const newLi = document.createElement("li");
+
+        newLi.className = "ind-proj";
+        newLi.dataset.id=project._id;
+        newLi.textContent = project.name;
+
+        projetsContainer.appendChild(newLi);
+    }
+
+</script>
+
+</html>
+
+
+
+
+TODO:
+1. fix ui no li to on li
+2. make the config api more reachable
+
+
+-->

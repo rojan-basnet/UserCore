@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UserCore</title>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
+
+        body {
+            margin: 0;
+            font-family: Inter, sans-serif;
+            background: #0B1220;
+            color: #E6EDF7;
+        }
+
+        header {
+            height: 60px;
+            display: flex;
+            align-items: center;
+            padding: 0 22px;
+            background: rgba(255, 255, 255, 0.03);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            position: sticky;
+            top: 0;
+        }
+
+        .brand {
+            font-weight: 600;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: auto;
+            padding: 30px 20px;
+        }
+
+        .section-title {
+            font-size: 12px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            opacity: 0.6;
+            margin-bottom: 10px;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 14px;
+            padding: 18px;
+        }
+
+        .project {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .meta {
+            font-size: 12px;
+            opacity: 0.7;
+            margin-top: 6px;
+        }
+
+        /* TABLE FIX */
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            table-layout: fixed;
+        }
+
+        .table th,
+        .table td {
+            text-align: left;
+            padding: 12px;
+            font-size: 14px;
+
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            max-width: 0;
+        }
+
+        .table th {
+            font-size: 12px;
+            text-transform: uppercase;
+            opacity: 0.6;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .table tr {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .table tr:hover {
+            background: rgba(255, 255, 255, 0.03);
+        }
+
+        /* USER CELL */
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .pfp {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .center {
+            text-align: center;
+            padding: 40px;
+            opacity: 0.7;
+        }
+
+        .loader {
+            display: inline-block;
+            width: 18px;
+            height: 18px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-top: 2px solid #fff;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="brand">UserCore</div>
+    </header>
+
+    <div class="container">
+
+        <div id="loading" class="center">
+            <div class="loader"></div>
+            <p>Loading data...</p>
+        </div>
+
+        <div id="projectSection" style="display:none;">
+            <div class="section-title">Project Info</div>
+            <div class="card project" id="project"></div>
+        </div>
+
+        <div id="usersSection" style="display:none;">
+            <div class="section-title">Users</div>
+
+            <div class="card">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Created</th>
+                        </tr>
+                    </thead>
+                    <tbody id="users"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <div id="empty" class="center" style="display:none;"></div>
+
+    </div>
+
+    <script type="module" src="project.js">
+
+    </script>
+
+</body>
+
+</html>
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UserCore</title>
+    <style>
+
+    </style>
+</head>
+
+<body>
+    <h1></h1>
+</body>
+<script>
+
+    const CONFIG = { API_URL: "http://localhost:3000" };
+
+    const params = new URLSearchParams(window.location.search);
+    const projectId = params.get("id");
+    console.log(window.location.origin,projectId)
+
+
+    // to initial job
+    fetchProjectInfo(projectId);
+
+
+    async function fetchProjectInfo(projectId) {
+        try {
+            const response = await fetch(`${CONFIG.API_URL}/api/users?projectId=${projectId}`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+            });
+
+            if (!response.ok) {
+                throw new Error("Can't fetch users");
+            }
+            const data = await response.json();
+            console.log(data.users,data.project)
+
+        } catch (error) {
+            console.error("Error:", error.message);
+
+        }
+    }
+</script>
+
+</html> -->
