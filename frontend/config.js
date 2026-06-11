@@ -1,8 +1,8 @@
 
 const API_URL =
-    window.location.hostname === "localhost"||"127.0.0.1"
+    window.location.hostname === "localhost"
         ? "http://localhost:3000"
-        : "https://your-production-api.com";
+        : "https://usercore.onrender.com";
 
 const projectId="yourProjectId"
 
